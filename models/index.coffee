@@ -1,14 +1,15 @@
+url = require 'url'
 
 unless global.hasOwnProperty("db")
   Sequelize = require("sequelize")
   sequelize = null
 
+  if process.env.DATABASE_URL?
+    dbUrl   = url.parse(process.env.DATABASE_URL)
+    authArr = dbUrl.auth.split(':')
+
   dbOptions = switch process.env.NODE_ENV
     when 'production'
-      url = require 'url'
-      dbUrl   = url.parse(process.env.DATABASE_URL)
-      authArr = dbUrl.auth.split(':')
-
       name: dbUrl.path.substring(1)
       user: authArr[0]
       pass: authArr[1]
