@@ -7,7 +7,9 @@ unless global.hasOwnProperty("db")
   if process.env.DATABASE_URL?
     dbUrl   = url.parse(process.env.DATABASE_URL)
     authArr = dbUrl.auth.split(':')
-
+    console.log authArr
+    console.log dbUrl.host
+    console.log dbUrl.path
   dbOptions = switch process.env.NODE_ENV
     when 'production'
       name: dbUrl.path.substring(1)
