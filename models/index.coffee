@@ -1,24 +1,37 @@
+
 unless global.hasOwnProperty("db")
   Sequelize = require("sequelize")
   sequelize = null
 
-  if process.env.HEROKU_POSTGRESQL_BRONZE_URL?
+  dbOptions = switch process.env.NODE_ENV
+    when 'production'
+      url = require 'url'
+      dbUrl   = url.parse(process.env.HEROKU_POSTGRESQL_COPPER_URL)
+      authArr = dbUrl.auth.split(':')
 
-    # the application is executed on Heroku ... use the postgres database
-    match = process.env.HEROKU_POSTGRESQL_BRONZE_URL.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/)
-    sequelize = new Sequelize(match[5], match[1], match[2], {
-      dialect: "postgres"
-      protocol: "postgres"
-      port: match[4]
-      host: match[3]
-      logging: true #false
-    } )
-  else
-    # the application is executed on the local machine ... use mysql
-    sequelize = new Sequelize "locate-my-car-test", "locate-my-car", "locate",
-      dialect: "postgres"
-      protocol: "postgres"
-      logging: true #false
+      name: dbUrl.path.substring(1)
+      user: authArr[0]
+      pass: authArr[1]
+      host: dbUrl.host
+      port: null
+      dialect: 'postgres'
+      protocol: 'postgres'
+    when 'development'
+      name: dbUrl.path.substring(1)
+      user: authArr[0]
+      pass: authArr[1]
+      host: '127.0.0.1'
+      port: null
+      dialect: 'postgres'
+      protocol: 'postgres'
+
+  sequelize = new Sequelize(dbOptions.name, dbOptions.user, dbOptions.pass, {
+    host: dbOptions.host,
+    port: dbOptions.port,
+    dialect: dbOptions.dialect,
+    protocol: dbOptions.protocol,
+    logging: true #false
+  } )
 
   global.db =
     Sequelize: Sequelize
