@@ -17,9 +17,9 @@ unless global.hasOwnProperty("db")
       dialect: 'postgres'
       protocol: 'postgres'
     when 'development'
-      name: dbUrl.path.substring(1)
-      user: authArr[0]
-      pass: authArr[1]
+      name: 'locate-my-car-test'
+      user: 'locate-my-car'
+      pass: 'test'
       host: '127.0.0.1'
       port: null
       dialect: 'postgres'
