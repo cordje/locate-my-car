@@ -12,7 +12,7 @@ unless global.hasOwnProperty("db")
     console.log dbUrl.path
   dbOptions = switch process.env.NODE_ENV
     when 'production'
-      name: dbUrl.path.substring(1)
+      name: dbUrl.path.substring(6)
       user: authArr[0]
       pass: authArr[1]
       host: dbUrl.host
