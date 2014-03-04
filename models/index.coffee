@@ -6,7 +6,7 @@ unless global.hasOwnProperty("db")
   dbOptions = switch process.env.NODE_ENV
     when 'production'
       url = require 'url'
-      dbUrl   = url.parse(process.env.HEROKU_DATABASE_URL)
+      dbUrl   = url.parse(process.env.DATABASE_URL)
       authArr = dbUrl.auth.split(':')
 
       name: dbUrl.path.substring(1)
