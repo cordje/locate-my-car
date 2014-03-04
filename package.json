@@ -14,7 +14,8 @@
     "mustache-express": "0.2.2",
     "coffee-script-redux": "2.0.0-beta7",
     "connect-assets": "3.0.0-alpha1",
-    "underscore":"1.5.2"
+    "underscore":"1.5.2",
+    "coffee-script": "1.7.1"
   },
   "engines": {
     "node": "0.10.x",
