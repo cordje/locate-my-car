@@ -38,6 +38,8 @@ app.use express.static(path.join(__dirname, "public"))
 # development only
 app.use express.errorHandler()  if "development" is app.get("env")
 app.get "/", routes.index
+app.get "/car/:state/:license_plate/location", routes.location.getLocation
+app.put "/car/:state/:license_plate/location", routes.location.setLocation
 
 app.locals
   js: () -> global.js

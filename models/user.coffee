@@ -1,9 +1,7 @@
 module.exports = (sequelize, DataTypes) ->
   return sequelize.define "User", {
-    username: DataTypes.STRING
+    facebook_user_id: DataTypes.INTEGER
   }, {
     instanceMethods: {
-
-
     }
   }
