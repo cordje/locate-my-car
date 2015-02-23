@@ -8,6 +8,7 @@
     {{#js}}facebook-login{{/js}}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.js"></script>
+    {{#js}}ui-bootstrap-tpls-0.12.1{{/js}}
     <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
     {{#js}}angular-leaflet-directive{{/js}}
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css">
@@ -21,8 +22,7 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 
     {{#css}}style{{/css}}
 
@@ -31,23 +31,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
   <body ng-controller="CarLocationMapController" class="ng-scope">
+    {{=<% %>=}}
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">I'm a modal!</h3>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li ng-repeat="item in items">
+                    <a ng-click="selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            Selected: <b>{{ selected.item }}</b>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+    <%={{ }}=%>
     <leaflet center="center" markers="markers" controls="controls"></leaflet>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+    <button class="btn btn-default" ng-click="openSetCarModal()">Open me!</button>
   </body>
 </html>
