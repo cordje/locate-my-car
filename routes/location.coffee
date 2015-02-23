@@ -14,7 +14,6 @@ exports.getLocation = (req,res) ->
           return res.status(500).end("Database error on Car lookup")
         else if car?
           db.Location.findAll({where: { CarId: car.id }, limit: 1, order: 'timestamp DESC'}).complete (err, locations) ->
-            console.log(JSON.stringify(locations[0]))
             res.json(locations[0])
         else
           return res.status(404).end("No car found")
