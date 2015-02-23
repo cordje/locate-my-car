@@ -7,7 +7,6 @@ exports.getLocation = (req,res) ->
       res.status(404).send("User not found")
     else
       carToLookup =
-        UserId: user.id
         state: req.params.state
         license_plate: req.params.license_plate
       db.Car.find({ where: carToLookup }).complete (err, car) ->
