@@ -48,7 +48,7 @@ app.controller "CarLocationMapController", ($scope, $modal, $log, $http) ->
 
   $scope.controls.custom.push(CenterOnLastControl)
 
-  $scope.indus = new IndusService($scope, $http)
+  $scope.indus = new IndusService($scope, $http, "http://indus-service.herokuapp.com/v1")
 
   $scope.$watch 'streamUuid', (newValue, oldValue) ->
     if newValue?.length > 0
