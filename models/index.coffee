@@ -5,18 +5,14 @@ unless global.hasOwnProperty("db")
   sequelize = null
 
   if process.env.DATABASE_URL?
-    dbUrl   = url.parse(process.env.DATABASE_URL)
-    authArr = dbUrl.auth.split(':')
-    console.log authArr
-    console.log dbUrl.host
-    console.log dbUrl.path
+    match = process.env.DATABASE_URL.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/)
   dbOptions = switch process.env.NODE_ENV
     when 'production'
-      name: dbUrl.path.substring(6)
-      user: authArr[0]
-      pass: authArr[1]
-      host: dbUrl.host
-      port: null
+      name: match[5]
+      user: match[1]
+      pass: match[2]
+      host: match[3]
+      port: match[4]
       dialect: 'postgres'
       protocol: 'postgres'
     when 'development'

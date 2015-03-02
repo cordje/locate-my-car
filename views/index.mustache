@@ -7,9 +7,13 @@
 
     {{#js}}facebook-login{{/js}}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+    {{#js}}ui-bootstrap-tpls-0.12.1{{/js}}
     <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
     {{#js}}angular-leaflet-directive{{/js}}
+
+    {{#js}}indus_service{{/js}}
+    {{#js}}map_initialize{{/js}}
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
@@ -21,33 +25,51 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
     {{#css}}style{{/css}}
-
-    {{#js}}map_initialize{{/js}}
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body ng-controller="CarLocationMapController" class="ng-scope">
-    <leaflet center="center" markers="markers" controls="controls"></leaflet>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+  <body>
+    <div ng-controller="CarLocationMapController" class="ng-scope">
+      {{=<% %>=}}
+      <script type="text/ng-template" id="setCarModal.html">
+          <div class="modal-header">
+              <h3 class="modal-title">Set The Car To Park</h3>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>State:</label>
+              <select ng-model="state" ng-options="state for state in states track by state" class="form-control">
+              </select>
+            </div>
+            <div class="form-group">
+              <label>License Plate:</label>
+              <input type="text" ng-model="licensePlate" class="form-control" />
+            </div>
+
+            <p>Or</p>
+
+            <div class="form-group">
+              <label>Tracking Uuid:</label>
+              <input type="text" ng-model="streamUuid" class="form-control" />
+            </div>
+          </div>
+          <div class="modal-footer">
+              <button class="btn btn-primary" ng-click="ok()">OK</button>
+              <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+          </div>
+      </script>
+      <script type="text/ng-template" id="confirmCarLocation.html">
+          <div class="modal-header">
+              <h3 class="modal-title">Is this location correct?</h3>
+          </div>
+          <div class="modal-footer">
+              <button class="btn btn-primary" ng-click="setLocation()">Yes</button>
+              <button class="btn btn-warning" ng-click="cancel()">No</button>
+          </div>
+      </script>
+      <%={{ }}=%>
+      <leaflet center="center" markers="markers" controls="controls"></leaflet>
     </div>
-  </div>
-</div>
   </body>
 </html>
